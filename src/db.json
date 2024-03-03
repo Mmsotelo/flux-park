@@ -1,0 +1,130 @@
+{
+  "cores": [
+    {
+      "id": "1",
+      "nome": "Vermelho"
+    },
+    {
+      "id": "2",
+      "nome": "Azul"
+    },
+    {
+      "id": "3",
+      "nome": "Verde"
+    },
+    {
+      "id": "2e58",
+      "nome": "Prata"
+    },
+    {
+      "id": "8893",
+      "nome": "Branco"
+    }
+  ],
+  "modelos": [
+    {
+      "id": "1",
+      "nome": "Fusca"
+    },
+    {
+      "id": "2",
+      "nome": "Civic"
+    },
+    {
+      "id": "3",
+      "nome": "CG Titan 150"
+    },
+    {
+      "id": "6832",
+      "nome": "Onix"
+    },
+    {
+      "id": "caad",
+      "nome": "Fazer 150"
+    },
+    {
+      "id": "e690",
+      "nome": "Hayabusa"
+    },
+    {
+      "id": "4da4",
+      "nome": "F-250"
+    }
+  ],
+  "configuracoesPreco": {
+    "tempo": 30,
+    "tolerancia": 5,
+    "precoMoto": "2,00",
+    "precoCarro": "4,00",
+    "precoGrande": "6,00"
+  },
+  "veiculosEstacionados": [
+    {
+      "id": "0dd0",
+      "tipoVeiculo": "Carro",
+      "modeloVeiculo": "Renegade",
+      "corVeiculo": "Preto",
+      "placaVeiculo": "HJK0998",
+      "horarioEntrada": "23:14:41"
+    },
+    {
+      "id": "d115",
+      "tipoVeiculo": "Moto",
+      "modeloVeiculo": "CG Titan 150",
+      "corVeiculo": "Vermelho",
+      "placaVeiculo": "HGF6547",
+      "horarioEntrada": "23:18:49"
+    },
+    {
+      "id": "b2e1",
+      "tipoVeiculo": "Moto",
+      "modeloVeiculo": "CG Titan 150",
+      "corVeiculo": "Azul",
+      "placaVeiculo": "JKL6548",
+      "horarioEntrada": "12:17:28",
+      "tempoDecorrido": "04:08:53"
+    }
+  ],
+  "veiculosHistorico": [
+    {
+      "id": "b2e1",
+      "tipoVeiculo": "Moto",
+      "modeloVeiculo": "CG Titan 150",
+      "corVeiculo": "Azul",
+      "placaVeiculo": "JKL6548",
+      "horarioEntrada": "12:17:28",
+      "tempoDecorrido": "04:08:53"
+    }
+  ],
+  "infosVeiculo": [
+    {
+      "id": "",
+      "nome": "",
+      "tipoVeiculo": "",
+      "modeloVeiculo": "",
+      "corVeiculo": "",
+      "placaVeiculo": "",
+      "horarioEntrada": "",
+      "valorAPagar": "",
+      "tempoDecorrido": "",
+      "formaPagamento": "",
+      "horarioSaida": ""
+    },
+    {
+      "id": "86d0",
+      "tipoVeiculo": "Moto",
+      "modeloVeiculo": "CG Titan 150",
+      "corVeiculo": "Vermelho",
+      "placaVeiculo": "HGF6547",
+      "horarioEntrada": "23:18:49"
+    },
+    {
+      "id": "f9d1",
+      "tipoVeiculo": "Moto",
+      "modeloVeiculo": "CG Titan 150",
+      "corVeiculo": "Azul",
+      "placaVeiculo": "JKL6548",
+      "horarioEntrada": "12:17:28"
+    }
+  ]
+}

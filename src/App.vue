@@ -1,38 +1,37 @@
 <template>
-  <v-app>
-    <v-container fluid>
-      <v-row justify="center">
-        <v-col cols="12">
-          <v-card class="cabecalho">
-            <v-tabs v-model="tab" grow class="v-tabs-no-padding">
-              <v-tab value="one">Home</v-tab>
-              <v-tab value="two">Pátio</v-tab>
-              <v-tab value="three">Config</v-tab>
-            </v-tabs>
-          </v-card>
-        </v-col>
-      </v-row>
+  <div class="app-container">
+    <template v-if="!appStarted">
+      <!-- Tela de boas-vindas -->
+      <Login @start-app="startApp" />
+    </template>
 
-      <v-window v-model="tab">
-        <v-window-item value='one'>
-          <Home />
-        </v-window-item>
-        <v-window-item value='two'>
-          <Patio />
-        </v-window-item>
-        <v-window-item value='three'>
-          <Config />
-        </v-window-item>
-      </v-window>
+    <template v-else>
+      <!-- Conteúdo principal do aplicativo -->
+      <div class="menu-container">
+        <nav class="buttons-container">
+          <div class="menu-buttons">
+            <button @click="changeTab('home')" :class="{ 'text-white font-bold': tab === 'home' }"
+              class="home-button">Entrada</button>
+            <button @click="changeTab('patio')" :class="{ 'text-white font-bold': tab === 'patio' }"
+              class="patio-button">Pátio</button>
+            <button @click="changeTab('config')" :class="{ 'text-white font-bold': tab === 'config' }"
+              class="config-button">Config</button>
+          </div>
+        </nav>
 
-    </v-container>
-  </v-app>
+        <div class="menuCurrent-container">
+          <component :is="currentTabComponent"></component>
+        </div>
+      </div>
+    </template>
+  </div>
 </template>
 
 <script>
 import Home from './components/Home.vue';
 import Patio from './components/Patio.vue';
 import Config from './components/Config.vue';
+import Login from './components/Login.vue';
 
 export default {
   name: 'App',
@@ -41,13 +40,29 @@ export default {
     Home,
     Patio,
     Config,
+    Login
   },
   data() {
     return {
-      tab: null,
+      tab: 'home',
+      appStarted: false,
     };
   },
+
+  computed: {
+    currentTabComponent() {
+      if (this.tab === 'home') return Home;
+      if (this.tab === 'patio') return Patio;
+      if (this.tab === 'config') return Config;
+      return null;
+    }
+  },
+
   methods: {
+    startApp() {
+      // Defina a variável appStarted como true para mostrar o conteúdo principal do aplicativo
+      this.appStarted = true;
+    },
     changeTab(newTab) {
       this.tab = newTab;
     },
@@ -56,22 +71,49 @@ export default {
 </script>
 
 <style scoped>
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #001428;
-
+.app-container {
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(63, 63, 63);
 }
-.cabecalho {
+
+.menu-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  background-color: rgb(63, 63, 63);
+  width: 100%;
+  height: fit-content;
 }
 
-.v-tabs-no-padding {
-  padding-top: 0;
+.buttons-container {
+  width: 100%;
+}
+
+.home-button,
+.patio-button,
+.config-button {
+  width: 33.33%;
+  height: 48px;
+  background-color: rgb(47, 47, 47);
+  color: white;
+}
+
+.home-button:hover,
+.patio-button:hover,
+.config-button:hover {
+  background-color: antiquewhite;
+  color: black;
+}
+
+.home-button:focus,
+.patio-button:focus,
+.config-button:focus {
+  border-bottom: 2px solid rgb(254, 1, 195);
+}
+
+.menuCurrent-container {
+  width: 100%;
+
 }
 </style>

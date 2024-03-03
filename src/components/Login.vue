@@ -1,103 +1,82 @@
 <template>
-  <!-- <v-app> -->
-    <v-container fluid class="d-flex">
-      <v-card class="w-50">
-        <v-tabs v-model="tab" bg-color="black">
-          <v-tab value="one">Login</v-tab>
-          <v-tab value="two">Registrar</v-tab>
-        </v-tabs>
-
-        <v-card-text>
-          <v-window v-model="tab">
-            <v-window-item value="one">
-              <v-text-field label="Login" variant="outlined" v-model="login"></v-text-field>
-              <v-text-field label="Senha" variant="outlined" v-model="senha" type="password"></v-text-field>
-              <v-btn @click="fazerLogin" color="black">
-                Login
-              </v-btn>
-            </v-window-item>
-
-            <v-window-item value="two">
-              <v-text-field label="Login" variant="outlined" v-model="novoLogin"></v-text-field>
-              <v-text-field label="Senha" variant="outlined" v-model="novaSenha" type="password"></v-text-field>
-              <v-text-field label="Confirme a Senha" variant="outlined" v-model="confirmarSenha" type="password"></v-text-field>
-              <v-btn @click="registrar" color="black">
-                Registrar
-              </v-btn>
-            </v-window-item>
-          </v-window>
-        </v-card-text>
-      </v-card>
-    </v-container>
-  <!-- </v-app> -->
+  <div class="container-login">
+    <div class="container-modal">
+      <div class="container-conect">
+        <h1>Bem-vindo ao FluxPark!</h1>
+        <img class="botao-welcome" src="../assets/conect.png" @click="startApp">
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-
 export default {
-  name: 'Login',
-  setup() {
-    const tab = ref(null);
-    const login = ref('');
-    const senha = ref('');
-    const novoLogin = ref('');
-    const novaSenha = ref('');
-    const confirmarSenha = ref('');
+  methods: {
+    startApp() {
+      this.$emit('start-app');
+    }
+  }
+}
 
-    const fazerLogin = () => {
-      if (this.loginExistente(this.login, this.senha)) {
-        window.alert('Login bem-sucedido!');
-        localStorage.setItem('usuarioLogado', JSON.stringify({ login: this.login }));
-        
-        this.$router.push('/home');
-      } else {
-        window.alert('Dados inválidos. Tente novamente.');
-      }
-    };
-
-    const registrar = () => {
-      if (this.novoLogin && this.novaSenha && this.novaSenha === this.confirmarSenha) {
-        if (!this.loginExistente(this.novoLogin)) {
-          const novoUsuario = { login: this.novoLogin, senha: this.novaSenha };
-          const usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios')) || [];
-          usuariosRegistrados.push(novoUsuario);
-          localStorage.setItem('usuarios', JSON.stringify(usuariosRegistrados));
-
-          window.alert('Usuário registrado com sucesso!');
-          
-          this.$router.push('/home');
-        } else {
-          window.alert('Este login já existe. Escolha outro login.');
-        }
-      } else {
-        window.alert('Preencha todos os campos corretamente.');
-      }
-    };
-
-    const loginExistente = (login, senha) => {
-      const usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-      return usuariosRegistrados.some((usuario) => usuario.login === login && usuario.senha === senha);
-    };
-
-    return {
-      tab,
-      login,
-      senha,
-      novoLogin,
-      novaSenha,
-      confirmarSenha,
-      fazerLogin,
-      registrar,
-      loginExistente,
-    };
-  },
-};
 </script>
 
 <style scoped>
-.app {
-  display: none;
+.container-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-image: url("../assets/saopaulo.jpg");
+  opacity: 70%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
-</style>
+
+.container-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 60%;
+  border-top: solid 2px rgb(255, 255, 255);
+  border-left: solid 2px rgb(255,255,255);
+  border-bottom: solid 2px rgb(41, 41, 41);
+  border-right: solid 2px rgb(41, 41, 41);
+  border-radius: 8px;
+  backdrop-filter: blur(30);
+  background-color:rgba( 255,255,255,0.3);
+  box-shadow: 0 5px 7px 0 rgb(51, 51, 51);
+}
+
+.container-conect h1 {
+  font-size: 24pt;
+  font-weight: bold;
+  padding: 16px;
+}
+
+.container-conect img {
+  width: 100px;
+  height: 100px;
+border-radius: 26px;
+margin-top: 16px;
+box-shadow: 0 7px 10px 0 rgb(51, 51, 51);
+
+}
+
+.container-conect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ 
+  }
+
+.botao-welcome {
+  width: 100px;
+  height: 32px;
+  background-color: rgb(0, 255, 72);
+  cursor: pointer;
+}</style>
+
