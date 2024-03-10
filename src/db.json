@@ -52,9 +52,9 @@
     }
   ],
   "configuracoesPreco": {
-    "tempo": 30,
-    "tolerancia": 5,
-    "precoMoto": "2,00",
+    "tempo": 60,
+    "tolerancia": 10,
+    "precoMoto": "2,50",
     "precoCarro": "4,00",
     "precoGrande": "6,00"
   },
@@ -83,6 +83,14 @@
       "placaVeiculo": "JKL6548",
       "horarioEntrada": "12:17:28",
       "tempoDecorrido": "04:08:53"
+    },
+    {
+      "id": "f3b2",
+      "tipoVeiculo": "Carro",
+      "modeloVeiculo": "Ônix",
+      "corVeiculo": "Cinza",
+      "placaVeiculo": "HTY6659",
+      "horarioEntrada": "14:38"
     }
   ],
   "veiculosHistorico": [
@@ -125,6 +133,14 @@
       "corVeiculo": "Azul",
       "placaVeiculo": "JKL6548",
       "horarioEntrada": "12:17:28"
+    },
+    {
+      "id": "c5ef",
+      "tipoVeiculo": "Carro",
+      "modeloVeiculo": "Ônix",
+      "corVeiculo": "Cinza",
+      "placaVeiculo": "HTY6659",
+      "horarioEntrada": "14:38"
     }
   ]
 }

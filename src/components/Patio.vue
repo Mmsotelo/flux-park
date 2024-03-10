@@ -9,12 +9,17 @@
           <li :class="{ 'active': tab === 'veiculosHistorico' }" @click="changeTab('veiculosHistorico')">
             Histórico
           </li>
+
+          <li :class="{ 'active': tab === 'veiculosRelatorios' }" @click="changeTab('veiculosRelatorios')">
+            Relatórios
+          </li>
         </ul>
       </div>
       <div v-if="tab === 'veiculosEstacionados'">
         <div class="cols-12">
           <ul class="list-custom">
-            <li class="card-custom" v-for="veiculo in veiculosEstacionados" :key="veiculo.id">
+            <li class="card-custom" @click="mostrarPagamento(veiculo)" v-for="veiculo in veiculosEstacionados"
+              :key="veiculo.id">
               <div class="card-item">
                 <div class="container-modeloCor">
                   <div class="text-modelo">{{ veiculo.modeloVeiculo }}</div>
@@ -24,9 +29,6 @@
                 <div class="container-horarios">
                   <div class="text-hora-entrada">{{ veiculo.horarioEntrada }}</div>
                   <div class="text-tempo-decorrido">{{ veiculo.tempoDecorrido }}</div>
-                </div>
-                <div class="botao-saida">
-                  <button @click="mostrarPagamento(veiculo)" class="botaoSaida">Efetuar Pagamento</button>
                 </div>
               </div>
             </li>
@@ -43,25 +45,33 @@
                   <div class="text-cor">{{ historico.corVeiculo }}</div>
                 </div>
                 <div class="text-placa">{{ historico.placaVeiculo }}</div>
-                <div class="botoes-historico">
-                  <button class="botaoPagamento">
-                    <div class="mostrar-pagamento">
-                      <img src="../assets/formapagamento.png">
-                      <span>"pgto"</span>
-                    </div>
-                    <div class="mostrar-tempo">
-                      <img src="../assets/ampulheta.png">
-                      <span>{{ veiculo.tempoDecorrido }}</span>
-                    </div>
-                    <div class="mostrar-valor">
-                      <img src="../assets/valor.png">
-                      <span>R$ {{ veiculo.valorAPagar }}</span>
-                    </div>
-                  </button>
+                <div class="historico-veiculo">
+                  <div class="mostrar-pagamento">
+                    <span>FP{{ infosVeiculo.formaPagamento }}</span>
+                  </div>
+                  <div class="mostrar-tempo">
+                    <span>TD {{ infosVeiculo.tempoDecorrido }}</span>
+                  </div>
+                  <div class="mostrar-valor">
+                    <span>R$ {{ infosVeiculo.valorAPagar }}</span>
+                  </div>
                 </div>
               </div>
             </li>
           </ul>
+        </div>
+      </div>
+      <div v-if="tab === 'veiculosRelatorios'">
+        <div class="chart-horarios">
+          Grafico por Horário
+        </div>
+        <div class="chart-tipos">
+          Gráfico por tipo
+
+        </div>
+        <div class="chart-tempo">
+          Gráfico tempo por tipo
+
         </div>
       </div>
     </div>
@@ -78,34 +88,27 @@
         <span class="modal-placa">Placa: {{ infosVeiculo.placaVeiculo }}</span>
       </div>
       <div class="forma-pagamento">
-        <span class="modal-pagamento">Forma de pagamento</span>
-
         <div class="formaPagamento">
           <div ref="dinheiro" class="dinheiro" :class="{ 'selecionado': formaPagamentoSelecionada === 'Dinheiro' }">
             <span class="dinheiro">Dinheiro</span>
             <img src="../assets/notadedolar.png ">
           </div>
-
           <div ref="debito" class="debito" :class="{ 'selecionado': formaPagamentoSelecionada === 'Débito' }">
             <span class="debito">Débito</span>
             <img src="../assets/cartao.png ">
           </div>
-
           <div ref="credito" class="credito" :class="{ 'selecionado': formaPagamentoSelecionada === 'Crédito' }">
             <span class="credito">Crédito</span>
             <img src="../assets/cartao.png ">
           </div>
-
           <div ref="pix" class="pix" :class="{ 'selecionado': formaPagamentoSelecionada === 'Pix' }">
             <span class="pix">Pix</span>
             <img src="../assets/pix.png ">
           </div>
-
           <div ref="carteira" class="carteira" :class="{ 'selecionado': formaPagamentoSelecionada === 'Carteira' }">
             <span class="carteira">Carteira</span>
             <img src="../assets/carteira.png ">
           </div>
-
         </div>
         <div class="recibo">
           <input type="checkbox" id="meuCheckbox" name="meuCheckbox" value="valorDoCheckbox">
@@ -285,7 +288,7 @@ export default {
         alert('Erro ao registrar saída. Por favor, tente novamente.');
       }
     },
-    async funcao(totalMinutos){
+    async funcao(totalMinutos) {
       const config = await axios.get(`http://localhost:3000/configuracoesPreco`);
       const tempoResultanteModulo = totalMinutos % config.tempo;
       let inteiros = Math.floor(totalMinutos / config.tempo);
@@ -363,7 +366,7 @@ export default {
     this.intervalId = setInterval(() => {
       this.atualizarValorAPagar();
     }, 60000);
-    this. intervalIdDois = setInterval(() => {
+    this.intervalIdDois = setInterval(() => {
       this.getVeiculos();
     }, 1000);
   },
@@ -393,6 +396,7 @@ export default {
 .container-formaPagamento {
   display: none;
   position: fixed;
+  padding: 4px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -405,8 +409,8 @@ export default {
   border-right: solid 7px rgb(30, 30, 30);
   border-radius: 12px;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.812);
-  width: 40%;
-  height: 60%;
+  width: 50%;
+  height: 70%;
 }
 
 #overlay {
@@ -427,7 +431,7 @@ export default {
   width: 100%;
   color: black;
   font-size: medium;
-  margin-top: 24px;
+  margin: 24px 0 24px 0;
 }
 
 .modal-informacoes span {
@@ -441,7 +445,8 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  width: 100%;
+  padding: 16px;
 }
 
 .formaPagamento {
@@ -449,7 +454,7 @@ export default {
   justify-content: space-around;
   flex-direction: row;
   width: 80%;
-  gap: 16px;
+  column-gap: 16px;
 }
 
 .dinheiro img,
@@ -507,7 +512,7 @@ export default {
   font-style: italic;
   font-weight: 700;
   color: white;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .formaPagamento span {
@@ -521,7 +526,7 @@ export default {
 .recibo {
   display: flex;
   justify-content: center;
-  margin-top: 24px;
+  margin-top: 42px;
   gap: 12px;
   width: 100%;
 }
@@ -536,7 +541,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 280px;
+  width: 250px;
   background-color: rgba(1, 193, 132, 0.441);
   border-top: solid 7px rgb(56, 56, 56);
   border-left: solid 7px rgb(56, 56, 56);
@@ -545,13 +550,14 @@ export default {
   border-radius: 12px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
   z-index: 10;
+  cursor: pointer;
 }
 
 .card-custom-historico {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 280px;
+  width: 250px;
   background-color: rgba(255, 86, 86, 0.464);
   border-top: solid 7px rgb(56, 56, 56);
   border-left: solid 7px rgb(56, 56, 56);
@@ -560,12 +566,12 @@ export default {
   border-radius: 12px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
   z-index: 10;
+  cursor: pointer;
 }
 
 .container-horarios {
   display: flex;
   justify-content: space-between;
-  margin-top: -10px;
   font-weight: 400;
 }
 
@@ -574,17 +580,11 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
   align-items: center;
-  font-size: 30pt;
+  font-size: 26pt;
   font-weight: bold;
   margin: 0;
   padding: 0;
   letter-spacing: 5px;
-}
-
-.botao-saida {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
 
 .botao-pagar {
@@ -599,61 +599,22 @@ export default {
   border-right: solid 2px rgb(63, 63, 63);
   border-bottom: solid 2px rgb(63, 63, 63);
   margin-bottom: 8px;
-  margin-top: 24px;
+  margin-top: 42px;
   border-radius: 6px;
   cursor: pointer;
   padding: 12px;
   box-shadow: 0 2px 4px rgba(34, 34, 34, 0.701);
 }
 
+.botao-pagar:hover {
+  background-color: #006f20;
+  color: white;
+}
 
-.botaoSaida {
+.historico-veiculo {
   display: flex;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: 36px;
-  border-top: solid 2px rgb(195, 194, 194);
-  border-left: solid 2px rgb(195, 194, 194);
-  border-right: solid 2px rgb(63, 63, 63);
-  border-bottom: solid 2px rgb(63, 63, 63);
-  margin-bottom: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 12px;
-  box-shadow: 0 2px 4px rgba(34, 34, 34, 0.701);
-}
-
-.botaoSaida img {
-  width: 24px;
-  height: 24px;
-}
-
-.botao-pagar:hover,
-.botaoSaida:hover {
-  background-color: rgb(3, 189, 43);
-}
-
-.botoes-historico {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.botaoPagamento {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 8px;
-  cursor: pointer;
-}
-
-.botaoPagamento img {
-  width: 20px;
-  height: 20px;
+  gap: 10px;
 }
 
 .mostrar-pagamento,
@@ -666,29 +627,33 @@ export default {
   gap: 10px;
 }
 
-.container-custom {
-  width: 100%;
-  padding: 0;
-}
-
 .tabs {
   display: flex;
   justify-content: center;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.tabs ul {
   list-style-type: none;
   padding: 0;
+  display: flex;
+
+  justify-content: center;
 }
 
 .tabs li {
+  width: 33.33%;
+  text-align: center;
+  border-radius: 0 0 8px 8px;
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 4px 20px;
   background-color: #3b3a3d;
-  color: antiquewhite;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  color: rgb(251, 213, 164);
 }
 
 .tabs li.active {
-  background-color: #413e45;
+  border-bottom: solid 2px rgb(254, 1, 195);
 }
 
 .tabs li:hover {
@@ -700,8 +665,11 @@ export default {
   flex-wrap: wrap;
   gap: 10px;
 }
+
 .icone-fechar {
+  height: 10px;
   height: 20px;
   width: 20px;
+  margin: 4px 4px 0 auto;
 }
 </style>

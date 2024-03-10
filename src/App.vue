@@ -15,7 +15,7 @@
             <button @click="changeTab('patio')" :class="{ 'text-white font-bold': tab === 'patio' }"
               class="patio-button">Pátio</button>
             <button @click="changeTab('config')" :class="{ 'text-white font-bold': tab === 'config' }"
-              class="config-button">Config</button>
+              class="config-button">Configurações</button>
           </div>
         </nav>
 
@@ -94,9 +94,10 @@ export default {
 .patio-button,
 .config-button {
   width: 33.33%;
-  height: 48px;
+  height: 42px;
   background-color: rgb(47, 47, 47);
   color: white;
+  font-size: large;
 }
 
 .home-button:hover,

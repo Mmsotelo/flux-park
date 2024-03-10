@@ -6,9 +6,11 @@
         </li>
         <li :class="{ 'active': tab === 'cadastroClientes' }" @click="changeTab('cadastroClientes')">
           Clientes</li>
+          <li :class="{ 'active': tab === 'veiculosRelatorios' }" @click="changeTab('veiculosMeuEstacionamento')">
+            Meu Estacionamento
+          </li>
         <li :class="{ 'active': tab === 'cadastroUsuarios' }" @click="changeTab('cadastroUsuarios')">Usuários
         </li>
-
       </ul>
     </div>
 
@@ -515,16 +517,16 @@ export default {
 }
 
 .tabs-config li {
-  width: 33.33%;
+  width: 25%;
   text-align: center;
   border-radius: 0 0 8px 8px;
 }
 
 .tabs-config ul li {
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 4px 20px;
   background-color: #3b3a3d;
-  color: antiquewhite;
+  color: rgb(251, 213, 164);
 }
 
 .tabs-config ul li.active {

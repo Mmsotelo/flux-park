@@ -4,6 +4,7 @@
       <label for="tipo" class="label-tipo">Tipo</label>
       <div class="custom-select">
         <select id="tipo" name="tipo" v-model="infosVeiculo.tipoVeiculo">
+          <option disabled selected value="">Selecione um tipo</option>
           <option class="options-tipo" value="Moto">Moto</option>
           <option class="options-tipo" value="Carro">Carro</option>
           <option class="options-tipo" value="Grande">Grande</option>
@@ -302,6 +303,9 @@ export default {
   background-color: #5b5b5b;
   appearance: none;
 }
+.options-placeholder::placeholder {
+color: #ccc;
+}
 
 .comb-modelo,
 .comb-cor,
@@ -394,11 +398,9 @@ export default {
 .container-button-entrada img {
   width: 20px;
   height: 20px;
-
 }
 
 .container-button-entrada {
-
   width: 100%;
   padding: 10px;
   font-size: 22px;
@@ -429,4 +431,6 @@ export default {
   margin-bottom: 12px;
   border-radius: 5px;
   border: 1px solid #888888;
-}</style>
+}
+
+</style>
